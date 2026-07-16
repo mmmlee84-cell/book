@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard Variable", "Pretendard", "Malgun Gothic", "Segoe UI", sans-serif;
+  background: #f8f8f8;
+  color: #212126;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 1.6rem;
+  margin: 16px 0 28px;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: #fff;
+  padding: 24px;
+  border-radius: 0;
+  border: 1px solid #e5e7eb;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #212126;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d6d8dd;
+  border-radius: 0;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #212126;
+}
+
+.preview-wrapper {
+  text-align: center;
+}
+
+.preview {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 0;
+  border: 1px solid #e5e7eb;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #212126;
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: #000000;
+}
+
+.submit-btn:disabled {
+  background: #212126;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.status {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+}
+
+.status.success {
+  color: #16a34a;
+}
+
+.status.error {
+  color: #dc2626;
+}
+
+/* ============================================================
+   갤러리 목록 페이지 (edit.html)
+   ============================================================ */
+.list-container {
+  max-width: 800px;
+}
+
+.gallery-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+}
+
+.gallery-table th,
+.gallery-table td {
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.gallery-table thead th {
+  background: #212126;
+  color: #fff;
+  font-weight: 600;
+}
+
+.gallery-table .thumb {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.gallery-table .empty {
+  color: #57575b;
+  padding: 24px;
+}
+
+.gallery-table .empty.error {
+  color: #dc2626;
+}

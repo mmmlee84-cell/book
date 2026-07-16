@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내 정보</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- 공통 카드 스타일(.card) + 이 페이지 전용 정보 표시 스타일 -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mypage.css" />
+</head>
+<body>
+    <!-- 회원가입/로그인과 동일한 카드 -->
+    <main class="card" role="main">
+        <h1 class="card__title">내 정보</h1>
+
+        <!--
+            로딩이 끝나기 전에는 내용을 숨겨 두고(JS가 hidden 해제),
+            데이터를 채운 뒤 화면에 표시합니다.
+        -->
+        <section id="profile" hidden>
+            <!-- 상단: 원형 프로필 이미지 -->
+            <div class="profile-header">
+                <img id="profile-image" class="profile-avatar" alt="프로필 이미지" />
+
+                <!-- 권한 배지 (관리자 / 일반) -->
+                <span id="role-badge" class="role-badge"></span>
+            </div>
+
+            <!-- 정보 목록 (항목 사이에 구분선) -->
+            <ul class="info-list">
+                <li class="info-item">
+                    <span class="info-label">이름</span>
+                    <span class="info-value" id="v-name">-</span>
+                </li>
+                <li class="info-item">
+                    <span class="info-label">이메일</span>
+                    <span class="info-value" id="v-email">-</span>
+                </li>
+                <li class="info-item">
+                    <span class="info-label">전화번호</span>
+                    <span class="info-value" id="v-phone">-</span>
+                </li>
+                <li class="info-item">
+                    <span class="info-label">주소</span>
+                    <span class="info-value" id="v-address">-</span>
+                </li>
+            </ul>
+
+            <!-- 로그아웃 버튼 -->
+            <div class="actions">
+                <button type="button" id="logout-btn" class="btn btn--primary">로그아웃</button>
+            </div>
+        </section>
+
+        <!-- 로딩/오류 메시지 영역 -->
+        <p id="message" class="message" role="alert">불러오는 중...</p>
+    </main>
+
+    <script type="module" src="mypage.js"></script>
+</body>
+</html>

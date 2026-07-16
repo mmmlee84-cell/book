@@ -1,0 +1,86 @@
+/* =====================================================================
+   내 정보(mypage) 전용 스타일
+   - 공통 카드 스타일(.card)은 style.css 를 그대로 사용하고,
+     여기서는 "정보 표시"에 필요한 스타일만 정의합니다.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------
+   상단 프로필 영역
+   --------------------------------------------------------------- */
+.profile-header {
+    /* 이미지와 배지를 세로 중앙 정렬 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+/* 원형 프로필 이미지 */
+.profile-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 0;
+    object-fit: cover;         /* 비율 유지하며 꽉 채움 */
+    border: 1px solid #e5e7eb;
+    background: #f8f8f8;       /* 이미지 로딩 전 배경 */
+}
+
+/* ---------------------------------------------------------------
+   권한 배지 (관리자 / 일반)
+   --------------------------------------------------------------- */
+.role-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 0;
+}
+
+/* 일반 사용자 배지 (기본: 회색) */
+.role-badge--user {
+    background: #f1f1f3;
+    color: #57575b;
+}
+
+/* 관리자 배지 (강조: 잉크) */
+.role-badge--admin {
+    background: #212126;
+    color: #fff;
+}
+
+/* ---------------------------------------------------------------
+   정보 목록 (항목 사이 구분선)
+   --------------------------------------------------------------- */
+.info-list {
+    list-style: none;          /* 기본 목록 점 제거 */
+    margin-bottom: 24px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;  /* 라벨은 왼쪽, 값은 오른쪽 */
+    align-items: center;
+    gap: 12px;
+    padding: 14px 2px;
+    border-bottom: 1px solid #e5e7eb; /* 항목 사이 구분선 */
+}
+
+/* 마지막 항목은 아래 구분선 제거 */
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #57575b;
+    flex-shrink: 0;            /* 라벨은 줄어들지 않음 */
+}
+
+.info-value {
+    font-size: 14px;
+    color: #212126;
+    text-align: right;
+    word-break: break-all;    /* 긴 이메일/주소 줄바꿈 */
+}

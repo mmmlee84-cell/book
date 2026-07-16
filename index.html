@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>책갈피 · 나의 독서 기록</title>
+    <meta name="description" content="내가 읽은 책을 기록하고 독후감을 남기는 나만의 독서 앱, 책갈피." />
+    <meta name="theme-color" content="#212126" />
+    <!-- Pretendard 웹폰트 (DESIGN.md 기준 전체 폰트) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Supabase JS SDK (대시보드 데이터 조회용) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <!-- ============================= 상단 앱바 ============================= -->
+    <header class="appbar">
+        <div class="appbar__inner">
+            <span class="appbar__logo">책갈피</span>
+            <a class="appbar__account" href="member_ex/login.html">로그인</a>
+        </div>
+    </header>
+
+    <!-- ============================= 본문 ============================= -->
+    <main class="app-main">
+
+        <!-- 인사 -->
+        <section class="greeting">
+            <h1 class="greeting__title">안녕하세요</h1>
+            <p class="greeting__sub">오늘은 어떤 책을 읽으셨나요?</p>
+        </section>
+
+        <!-- 주요 실행 (가장 자주 쓰는 동작) -->
+        <section class="quick">
+            <a class="quick__btn quick__btn--primary" href="book_ex/book.html">
+                <span class="quick__label">책 기록하기</span>
+            </a>
+            <a class="quick__btn quick__btn--accent" href="board_ex/write.html">
+                <span class="quick__label">독후감 쓰기</span>
+            </a>
+        </section>
+
+        <!-- 통계 -->
+        <section class="stats">
+            <div class="stat">
+                <div class="stat__num" id="stat-books">–</div>
+                <div class="stat__label">읽은 책</div>
+            </div>
+            <div class="stat">
+                <div class="stat__num" id="stat-reviews">–</div>
+                <div class="stat__label">독후감</div>
+            </div>
+            <div class="stat">
+                <div class="stat__num" id="stat-month">–</div>
+                <div class="stat__label">이번 달</div>
+            </div>
+        </section>
+
+        <!-- 최근 등록한 책 -->
+        <section class="block">
+            <div class="block__head">
+                <h2>최근 등록한 책</h2>
+                <a href="book_ex/book.html">더보기</a>
+            </div>
+            <div class="card">
+                <div id="recent-books" class="mini-list">
+                    <p class="panel-msg">불러오는 중...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 최근 독후감 -->
+        <section class="block">
+            <div class="block__head">
+                <h2>최근 독후감</h2>
+                <a href="board_ex/board.html">더보기</a>
+            </div>
+            <div class="card">
+                <div id="recent-reviews">
+                    <p class="panel-msg">불러오는 중...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================= 하단 탭바 ============================= -->
+    <nav class="tabbar" aria-label="주요 메뉴">
+        <div class="tabbar__inner">
+            <a class="tab is-active" href="index.html" aria-current="page">
+                <span class="tab__label">홈</span>
+            </a>
+            <a class="tab" href="book_ex/book.html">
+                <span class="tab__label">내 서재</span>
+            </a>
+            <a class="tab" href="board_ex/board.html">
+                <span class="tab__label">독후감</span>
+            </a>
+            <a class="tab" href="bgallery_ex/bgallery.html">
+                <span class="tab__label">갤러리</span>
+            </a>
+            <a class="tab" href="member_ex/login.html">
+                <span class="tab__label">내 정보</span>
+            </a>
+        </div>
+    </nav>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

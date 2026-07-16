@@ -1,0 +1,301 @@
+/* =====================================================================
+   책갈피 — 앱 스타일 독서 기록 서비스 (홈)
+   - 상단 앱바 + 하단 탭바 + 카드 리스트 (모바일 앱 레이아웃)
+   ===================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* NHN 무채색 팔레트 (DESIGN.md) */
+    --color-primary: #212126;       /* 잉크 (강조·활성·채운 버튼) */
+    --color-primary-dark: #000000;  /* 눌림 상태 */
+    --color-foreground: #36363d;    /* 보조 텍스트 상위 계층 */
+    --color-soft: #f1f1f3;          /* 칩·배지·연한 배경 */
+    --color-bg: #f8f8f8;            /* 앱 배경 (surface) */
+    --color-surface: #ffffff;       /* 카드·앱바·탭바 (canvas) */
+    --color-text: #212126;          /* 본문 잉크 */
+    --color-muted: #57575b;         /* 보조 텍스트 */
+    --color-border: #e5e7eb;        /* hairline */
+    --radius: 0;                    /* 사각(스퀘어) 보드 스타일 */
+    --radius-sm: 0;
+    --shadow: none;                 /* DESIGN.md: 플랫 — 그림자 없이 hairline 경계로 구분 */
+    --appbar-h: 56px;
+    --tabbar-h: 62px;
+    --app-w: 640px;              /* 앱 컨텐츠 최대 폭 */
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    font-family: "Pretendard Variable", "Pretendard", "Malgun Gothic", "Segoe UI", sans-serif;
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.55;
+    /* 상·하단 고정 바 높이만큼 여백 확보 */
+    padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
+    -webkit-tap-highlight-color: transparent;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* =====================================================================
+   상단 앱바
+   ===================================================================== */
+.appbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+.appbar__inner {
+    max-width: var(--app-w);
+    height: var(--appbar-h);
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.appbar__logo {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+}
+.appbar__account {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    transition: background 0.15s;
+}
+.appbar__account:active { background: var(--color-soft); }
+
+/* =====================================================================
+   본문 컨테이너
+   ===================================================================== */
+.app-main {
+    max-width: var(--app-w);
+    margin: 0 auto;
+    padding: 18px 16px 8px;
+}
+
+/* 인사 */
+.greeting { margin: 6px 2px 18px; }
+.greeting__title {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+.greeting__sub {
+    font-size: 15px;
+    color: var(--color-muted);
+    margin-top: 2px;
+}
+
+/* =====================================================================
+   주요 실행 버튼
+   ===================================================================== */
+.quick {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+.quick__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 18px;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    color: #fff;
+    transition: transform 0.12s ease, filter 0.12s ease;
+}
+.quick__btn:active { transform: scale(0.98); filter: brightness(0.96); }
+/* 채운 버튼(잉크) / 외곽선 버튼(흰 배경) 으로 위계 표현 — 무채색 유지 */
+.quick__btn--primary { background: var(--color-primary); color: #fff; }
+.quick__btn--accent {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+.quick__label { font-size: 16px; font-weight: 700; }
+
+/* =====================================================================
+   통계 타일
+   ===================================================================== */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 26px;
+}
+.stat {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 16px 10px;
+    text-align: center;
+}
+.stat__num {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.1;
+}
+.stat__label {
+    font-size: 12.5px;
+    color: var(--color-muted);
+    margin-top: 4px;
+}
+
+/* =====================================================================
+   섹션 블록
+   ===================================================================== */
+.block { margin-bottom: 22px; }
+.block__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 2px;
+    margin-bottom: 10px;
+}
+.block__head h2 {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+.block__head a {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+/* 최근 책 목록 */
+.mini-list { display: flex; flex-direction: column; }
+.mini-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+.mini-item:last-child { border-bottom: none; }
+.month-badge {
+    flex-shrink: 0;
+    min-width: 42px;
+    text-align: center;
+    padding: 6px 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--color-primary);
+    background: var(--color-soft);
+    border-radius: 0;
+}
+.mini-item__body { min-width: 0; }
+.mini-item__title {
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mini-item__sub { font-size: 13px; color: var(--color-muted); }
+
+/* 최근 독후감 */
+.review-item {
+    display: block;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--color-border);
+    transition: background 0.15s;
+}
+.review-item:last-child { border-bottom: none; }
+.review-item:active { background: var(--color-soft); }
+.review-item__title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.review-item__meta {
+    font-size: 12.5px;
+    color: var(--color-muted);
+    display: flex;
+    gap: 10px;
+}
+
+/* 로딩 / 비어있음 */
+.panel-msg {
+    padding: 26px 16px;
+    text-align: center;
+    color: var(--color-muted);
+    font-size: 14px;
+}
+.panel-msg.error { color: #dc2626; }
+
+/* =====================================================================
+   하단 탭바
+   ===================================================================== */
+.tabbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.tabbar__inner {
+    max-width: var(--app-w);
+    height: var(--tabbar-h);
+    margin: 0 auto;
+    display: flex;
+}
+.tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-muted);
+    font-size: 13px;
+    font-weight: 600;
+    transition: color 0.15s, background 0.15s;
+}
+.tab__label { line-height: 1; }
+.tab.is-active { color: var(--color-primary); font-weight: 700; background: var(--color-soft); }
+.tab:active { color: var(--color-primary-dark); }
+
+/* =====================================================================
+   데스크톱: 앱을 가운데 폭으로 유지 (웹사이트가 아닌 앱 느낌)
+   ===================================================================== */
+@media (min-width: 700px) {
+    .tabbar {
+        left: 50%;
+        transform: translateX(-50%);
+        width: var(--app-w);
+        border-left: 1px solid var(--color-border);
+        border-right: 1px solid var(--color-border);
+    }
+}

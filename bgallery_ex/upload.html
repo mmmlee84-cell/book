@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이미지 등록</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Supabase JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <main class="container">
+    <h1 class="page-title">이미지 등록</h1>
+    <p style="text-align:center; margin:-16px 0 24px;">
+      <a href="bgallery.html" style="color:#212126; font-size:0.9rem; text-decoration:none;">갤러리 목록으로</a>
+    </p>
+
+    <form id="upload-form" class="upload-form" onsubmit="return false;">
+      <label class="field">
+        <span class="field-label">제목</span>
+        <input type="text" id="title" name="title" placeholder="제목을 입력하세요" />
+      </label>
+
+      <label class="field">
+        <span class="field-label">이미지 설명</span>
+        <textarea id="description" name="description" rows="3" placeholder="이미지 설명을 입력하세요"></textarea>
+      </label>
+
+      <label class="field">
+        <span class="field-label">이미지 파일</span>
+        <input type="file" id="image" name="image" accept="image/*" />
+      </label>
+
+      <div id="preview-wrapper" class="preview-wrapper" hidden>
+        <img id="preview" class="preview" alt="미리보기" />
+      </div>
+
+      <!-- type="button" 으로 두어 폼 새로고침(주소창 변경)을 원천 차단 -->
+      <button type="button" id="submit-btn" class="submit-btn">등록</button>
+
+      <p id="status" class="status" role="status"></p>
+    </form>
+  </main>
+
+  <script>
+    // ============================================================
+    // Supabase 설정
+    // ============================================================
+    const SUPABASE_URL = "https://cbpxesevkjqenhriumfm.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_FDubU2pFp8nA7n2I2ARjdQ_65HWe9Lt";
+    const BUCKET = "bgallery";
+    const TABLE = "bgallery";
+
+    // DOM 참조
+    const titleInput = document.getElementById("title");
+    const descInput = document.getElementById("description");
+    const imageInput = document.getElementById("image");
+    const previewWrapper = document.getElementById("preview-wrapper");
+    const preview = document.getElementById("preview");
+    const submitBtn = document.getElementById("submit-btn");
+    const statusEl = document.getElementById("status");
+
+    function setStatus(message, type) {
+      statusEl.textContent = message;
+      statusEl.className = "status" + (type ? " " + type : "");
+    }
+
+    // Supabase 클라이언트 생성 + 로드 확인 표시
+    let sb = null;
+    if (window.supabase && window.supabase.createClient) {
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      setStatus("준비됨 — 정보를 입력하고 등록하세요.", "success");
+    } else {
+      setStatus("Supabase SDK를 불러오지 못했습니다. 인터넷 연결을 확인하세요.", "error");
+    }
+
+    // 파일 선택 시 미리보기
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files[0];
+      if (!file) {
+        previewWrapper.hidden = true;
+        preview.removeAttribute("src");
+        return;
+      }
+      preview.src = URL.createObjectURL(file);
+      previewWrapper.hidden = false;
+    });
+
+    // 등록 버튼 클릭 처리
+    submitBtn.addEventListener("click", async () => {
+      if (!sb) {
+        setStatus("Supabase가 준비되지 않았습니다. 페이지를 새로고침하세요.", "error");
+        return;
+      }
+
+      const title = titleInput.value.trim();
+      const description = descInput.value.trim();
+      const file = imageInput.files[0];
+
+      if (!title || !file) {
+        setStatus("제목과 이미지 파일은 필수입니다.", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      setStatus("업로드 중...");
+
+      try {
+        const ext = file.name.split(".").pop();
+        const imageName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+
+        // 1) Storage 업로드
+        const { error: uploadError } = await sb.storage
+          .from(BUCKET)
+          .upload(imageName, file, { cacheControl: "3600", upsert: false });
+        if (uploadError) throw uploadError;
+
+        // 2) 공개 URL
+        const { data: publicData } = sb.storage.from(BUCKET).getPublicUrl(imageName);
+        const imageUrl = publicData.publicUrl;
+
+        // 3) 테이블 저장
+        const { error: insertError } = await sb.from(TABLE).insert({
+          title,
+          image_name: imageName,
+          image_url: imageUrl,
+          description,
+        });
+        if (insertError) throw insertError;
+
+        // 4) 완료
+        setStatus("등록이 완료되었습니다!", "success");
+        titleInput.value = "";
+        descInput.value = "";
+        imageInput.value = "";
+        previewWrapper.hidden = true;
+        preview.removeAttribute("src");
+      } catch (err) {
+        console.error(err);
+        setStatus("오류가 발생했습니다: " + (err.message || err), "error");
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

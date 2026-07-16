@@ -1,0 +1,166 @@
+/* 페이지 전체 기본 스타일 — NHN 무채색 / 사각(스퀘어) / 플랫 */
+body {
+  font-family: "Pretendard Variable", "Pretendard", "Malgun Gothic", "Segoe UI", sans-serif;
+  background-color: #f8f8f8;
+  color: #212126;
+  margin: 0;
+  padding: 20px;
+}
+
+/* 내용을 가운데로 모으고 최대 너비를 제한하는 컨테이너 */
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;   /* 그림자 대신 hairline 경계 */
+  padding: 24px;
+}
+
+/* 제목 */
+h1 {
+  text-align: center;
+  color: #212126;
+  margin-bottom: 24px;
+}
+
+/* 도서 추가 입력 폼 */
+.add-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap; /* 화면이 좁으면 자동 줄바꿈 */
+}
+
+/* 입력칸 공통 스타일 (추가 폼 + 검색창) */
+.add-form input,
+.search-box input {
+  padding: 10px 12px;
+  border: 1px solid #d6d8dd;
+  border-radius: 0;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.add-form input:focus,
+.search-box input:focus {
+  outline: none;
+  border-color: #212126;
+}
+
+/* 추가 폼의 입력칸은 남는 공간을 나눠 가짐 */
+.add-form input {
+  flex: 1;
+  min-width: 100px;
+}
+
+/* 버튼 공통 스타일 */
+.add-form button {
+  padding: 10px 18px;
+  border: 1px solid #d6d8dd;
+  border-radius: 0;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  background-color: #fff;
+  color: #212126;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+/* 추가 버튼(채운 잉크) */
+#btn-add {
+  background-color: #212126;
+  border-color: #212126;
+  color: #fff;
+}
+#btn-add:hover {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+/* 수정 / 삭제 / 선택취소 (중립 외곽선 버튼) */
+#btn-update:hover:not(:disabled),
+#btn-delete:hover:not(:disabled),
+#btn-clear:hover:not(:disabled) {
+  background-color: #f1f1f3;
+}
+
+/* 비활성화된 버튼 */
+.add-form button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 선택 상태 안내 문구 */
+.select-info {
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: #57575b;
+}
+
+/* 검색창 */
+.search-box {
+  margin-bottom: 16px;
+}
+
+.search-box input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 표 기본 스타일 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* 표의 머리글(th)과 칸(td) 공통 스타일 */
+th,
+td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* 표 머리글 */
+th {
+  background-color: #f1f1f3;
+  color: #57575b;
+  font-weight: 700;
+}
+
+/* 짝수 줄에 옅은 배경색 */
+tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* 각 줄 클릭 가능 표시 */
+tbody tr {
+  cursor: pointer;
+}
+
+/* 마우스 올린 줄 강조 */
+tbody tr:hover {
+  background-color: #f1f1f3;
+}
+
+/* 현재 선택된 줄 강조 (중립 회색) */
+tbody tr.selected {
+  background-color: #e5e5e8;
+}
+tbody tr.selected:hover {
+  background-color: #dcdce0;
+}
+
+/* 로딩 안내 문구 */
+.loading {
+  text-align: center;
+  color: #8a8d91;
+}
+
+/* 오류 메시지 (기능색: 빨강 유지) */
+.error {
+  background-color: #fbeaea;
+  color: #c0392b;
+  padding: 12px 16px;
+  text-align: center;
+}
